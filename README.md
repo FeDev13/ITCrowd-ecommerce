@@ -41,7 +41,7 @@ React app developed as part of a Full Stack challenge from IT Crowd
 
 2. Navigate to client and run npm run dev
 
-3. Frontend is hosted on https://itcrowdcommerce.vercel.app
+3. Frontend is hosted on [https://itcrowdcommerce.vercel.app](https://itcrowdecommerce.vercel.app/)
 
 4.React-router-dom was used as navigation and Axios as library for making http requests
 
