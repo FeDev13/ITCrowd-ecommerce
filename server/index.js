@@ -1,21 +1,19 @@
 const express = require("express");
 const { sequelize, connectToDb } = require("./config/db");
 const bodyParser = require("body-parser");
-const router = require("./routes/routes");
-const userRouter = require("./routes/userRoutes");
-const brandRouter = require("./routes/brandRoutes");
+const productRoute = require("./routes/productRoute");
+const userRoute = require("./routes/userRoute");
+const brandRoute = require("./routes/brandRoute");
 
 const app = express();
 const PORT = 3000;
 
-app.use(express.json());
-
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/products", router);
-app.use("/users", userRouter);
-app.use("/brands", brandRouter);
+app.use("/products", productRoute);
+app.use("/user", userRoute);
+app.use("/brands", brandRoute);
 
 app.get("/", (request, response) => {
   response.send("<h1>Home</h1>");

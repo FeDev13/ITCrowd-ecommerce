@@ -1,61 +1,26 @@
-const Product = require("../models/models");
 const multer = require("multer");
 const path = require("path");
 
-//products controllers
-const getAllProducts = async (request, response) => {
-  //"/products"
-  const products = await Product.findAll();
+const Product = require("../models/productModel");
 
-  response.status(200).json(products);
-};
-
-const AddProduct = async (req, res) => {
-  let info = {
+const addProduct = async (req, res) => {
+  const data = {
     id: req.body.id,
     name: req.body.name,
     description: req.body.description,
-    img_Url: req.body.filename,
+    img_Url: req.file.path,
     price: req.body.price,
   };
 
-  const product = await Product.create(info);
+  const product = await Product.create(data);
   res.status(200).send(product);
   console.log(product);
-  /* try {
-    if (req.file === null) {
-      return res.status(400).send({ message: "No file was uploaded" });
-    }
-    console.log(req.body);
-    const url = req.protocol + "://" + req.get("host");
-    const urlImage = url + "/images/" + req.body.filename;
-    const modelData = {
-      id: req.body.id,
-      name: req.body.name,
-      description: req.body.description,
-      image: urlImage,
-      price: req.body.price,
-    };
-    const response = await Product.create(modelData)
-      .then((data) => {
-        const res = { error: false, data: data, message: "Product Created" };
-        return res;
-      })
-      .catch((e) => {
-        if (
-          e.name == "SequelizeUniqueConstraintError" ||
-          e.name == "SequelizeValidationError"
-        ) {
-          return { error: true, message: e.errors.map((err) => err.message) };
-        } else if (e.name == "SequelizeForeignKeyConstraintError") {
-          return { error: true, message: ["The category does not exist"] };
-        }
-        return { error: true, message: e };
-      });
-    res.json(response);
-  } catch (e) {
-    console.log(e);
-  } */
+};
+
+const getAllProducts = async (request, response) => {
+  const products = await Product.findAll();
+
+  response.status(200).json(products);
 };
 
 const getProductById = async (request, response) => {
@@ -138,14 +103,14 @@ const upload = multer({
     }
     cb("Give proper files formate to upload");
   },
-}).single("image");
+}).single("img_Url");
 
 module.exports = {
-  AddProduct,
+  addProduct,
+  upload,
   getAllProducts,
-  getProductById,
   deleteProduct,
+  getProductById,
   patchProduct,
   putProduct,
-  upload,
 };

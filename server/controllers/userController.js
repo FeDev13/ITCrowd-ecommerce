@@ -1,4 +1,17 @@
-const User = require("../models/usersModel");
+const User = require("../models/userModel");
+
+const addUser = async (req, res) => {
+  const data = {
+    id: req.body.id,
+    username: req.body.username,
+    password: req.body.password,
+    isLogged: req.body.isLogged,
+  };
+
+  const user = await User.create(data);
+  res.status(200).send(user);
+  console.log(user);
+};
 
 const getAllUsers = async (request, response) => {
   const user = await User.findAll();
@@ -6,15 +19,4 @@ const getAllUsers = async (request, response) => {
   response.status(200).json(user);
 };
 
-const createUser = async (req, res) => {
-  let data = {
-    email: req.body.email,
-    password: req.body.password,
-    isAutenticated: req.body.isAutenticated,
-  };
-  const user = await User.create(data);
-  res.status(200).send(user);
-  console.log(user);
-};
-
-module.exports = { getAllUsers, createUser };
+module.exports = { addUser, getAllUsers };

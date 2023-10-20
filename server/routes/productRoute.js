@@ -1,13 +1,12 @@
-const productController = require("../controllers/controllers");
+const productController = require("../controllers/productController");
 
 const router = require("express").Router();
 
 router.post(
   "/addProduct",
-  productController.AddProduct,
-  productController.upload
+  productController.upload,
+  productController.addProduct
 );
-
 router.get("/allProducts", productController.getAllProducts);
 
 router.get("/:id", productController.getProductById);

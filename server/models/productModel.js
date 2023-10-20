@@ -3,27 +3,23 @@ const { DataTypes } = require("sequelize");
 
 const Product = sequelize.define("Product", {
   id: {
-    autoIncrement: true,
     type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
     primaryKey: true,
   },
   name: {
     type: DataTypes.STRING,
-    validate: {
-      max: 150,
-    },
   },
   description: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
   },
   img_Url: {
     type: DataTypes.STRING,
   },
   price: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.FLOAT,
   },
 });
-
-sequelize.sync();
 
 module.exports = Product;

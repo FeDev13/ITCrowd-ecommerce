@@ -1,4 +1,4 @@
-const Brand = require("../models/brands");
+const Brand = require("../models/brandModel");
 
 const getAllBrands = async (request, response) => {
   const brands = await Brand.findAll();
